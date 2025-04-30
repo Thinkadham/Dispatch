@@ -14,6 +14,7 @@ SUPABASE_KEY = st.secrets.get("SUPABASE_KEY", "YOUR_SUPABASE_KEY")
 # --- Streamlit App ---
 st.set_page_config(page_title="Dispatch Register", layout="wide")
 st.title("Dispatch Register Application")
+st.image("/images/header.png")
 
 # --- Supabase Connection ---
 # Initialize Supabase client only if URL and Key are provided (and not the placeholders)
