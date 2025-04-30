@@ -292,8 +292,8 @@ if supabase: # Only fetch if supabase client is initialized
 
 # --- Main UI Sections ---
 st.sidebar.title("Navigation")
-menu = ["Record New Dispatch", "View Records", "Manage Contacts", "Download Data"]
-menu_icons = ["✍️", "📊", "👥", "💾"]
+menu = ["Record New Dispatch", "View Records", "Manage Contacts"]
+menu_icons = ["✍️", "📊", "👥"]
 menu_options = [f"{icon} {item}" for icon, item in zip(menu_icons, menu)]
 
 # Use index=0 to default to the first option if needed, or keep as is
@@ -301,36 +301,24 @@ choice_with_icon = st.sidebar.radio("Menu", menu_options, label_visibility="coll
 # Extract the actual choice text without the icon
 choice = choice_with_icon.split(" ", 1)[1]
 
-# --- Supabase Setup Instructions (Expandable Section) ---
-with st.sidebar.expander("Supabase Setup Instructions"):
+# --- About (Expandable Section) ---
+with st.sidebar.expander("About this App", expanded=False):
     st.write("""
-        For this application to function correctly, you need to set up the following in your Supabase project:
-
+        This Application is designed to manage dispatch records for the Hydraulic Division Uri. It allows users to:
+        - Record new dispatches with details like section, date, address, CC recipients, subject, and remarks.
+        - View existing dispatch records with filtering options.
+        - Manage contacts for dispatches, including adding, editing, and deleting contacts.
+        - Download records in Excel format.
+        - The application uses Supabase as the backend database for storing dispatch records and contacts.
+        - The dispatch number is generated automatically based on a sequence in the database, ensuring unique and sequential numbering.
+        
+            The Database structure includes:
         1.  **`dispatch_records` table:** This table stores the dispatch records. Ensure it has columns like `No`, `Date`, `Section`, `Address`, `CC`, `Subject`, `Remarks`, `id`, and `created_at`.
         2.  **`contacts` table:** This table stores contact information. Ensure it has columns like `id` and `name`.
         3.  **`dispatch_sequence` table:** This table is used to generate sequential dispatch numbers. It should have at least an `id` column (with a single row, e.g., `id = 1`) and a `last_no` column (integer) to store the last generated number.
         4.  **`get_next_dispatch_no` RPC function:** This database function is called to atomically get the next available dispatch number and increment the sequence. You will need to create this function in your Supabase SQL editor. A basic example (for PostgreSQL) might look like this:
 
-            ```sql
-            CREATE OR REPLACE FUNCTION get_next_dispatch_no()
-            RETURNS integer AS $$
-            DECLARE
-                next_no integer;
-            BEGIN
-                -- Lock the row to prevent race conditions
-                SELECT last_no INTO next_no FROM dispatch_sequence WHERE id = 1 FOR UPDATE;
-
-                -- Increment the number
-                UPDATE dispatch_sequence SET last_no = next_no + 1 WHERE id = 1;
-
-                -- Return the old number (which is the next available for use)
-                RETURN next_no;
-            END;
-            $$ LANGUAGE plpgsql;
-            ```
-            **Note:** This is a basic example. You might need to adjust it based on your specific requirements and Supabase version.
-
-        Ensure your Supabase URL and Key are correctly configured in Streamlit secrets or environment variables.
+           Developed by: Mohammad Adham Wani (Th!nkSolutions)
     """)
 
 
@@ -431,7 +419,7 @@ elif choice == "View Records":
                 st.error(traceback.format_exc())
 
         with col_pdf:
-            st.write("PDF generation is disabled.")
+            st.write("PDF generation can be added.")
 
     else:
         st.info("No records found for the selected date range.")
