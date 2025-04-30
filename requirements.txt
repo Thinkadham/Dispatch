@@ -1,5 +1,13 @@
+<<<<<<< HEAD
 streamlit
 supabase
 pandas
 openpyxl
 fpdf2
+=======
+streamlit
+supabase
+pandas
+openpyxl
+fpdf2
+>>>>>>> 16e1b80 (pub to github)
