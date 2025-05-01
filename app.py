@@ -10,6 +10,17 @@ from io import BytesIO # Import BytesIO for in-memory file handling
 
 # --- Streamlit Page Configuration (MUST be the first Streamlit command) ---
 st.set_page_config(page_title="Dispatch Register", layout="wide")
+
+# --- Hide Streamlit Style Elements (Hamburger Menu, Footer, Header) ---
+hide_menu_style = """
+        <style>
+        #MainMenu {visibility: hidden;}
+        footer {visibility: visible;}
+        header {visibility: hidden;}
+        </style>
+        """
+st.markdown(hide_menu_style, unsafe_allow_html=True)
+
 st.image("images/header.png")
 st.title("Dispatch Register of Hydraulic Division Uri")
 
@@ -340,7 +351,7 @@ def delete_contact(contact_id_to_delete, contact_name):
             error_message = "Unknown error."
             # Check if Supabase returned an error object (newer versions might)
             if hasattr(delete_response, 'error') and delete_response.error:
-                 error_message = insert_response.error.get('message', str(insert_response.error))
+                 error_message = delete_response.error.get('message', str(delete_response.error))
             elif hasattr(delete_response, 'status_code') and delete_response.status_code != 200: # Check for non-200 status on delete
                  error_message = f"Delete contact failed with status code {delete_response.status_code}. Response: {delete_response.data}"
 
