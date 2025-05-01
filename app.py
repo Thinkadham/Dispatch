@@ -15,7 +15,7 @@ st.set_page_config(page_title="Dispatch Register", layout="wide")
 hide_menu_style = """
         <style>
         #MainMenu {visibility: hidden;}
-        footer {visibility: visible;}
+        footer {visibility: visible;} 
         header {visibility: hidden;}
         </style>
         """
