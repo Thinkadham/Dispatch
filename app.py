@@ -8,7 +8,7 @@ import traceback # For detailed error logging
 from io import BytesIO # Import BytesIO for in-memory file handling
 
 
-# --- Streamlit Page Configuration (MUST be the first Streamlit command) ---
+# --- Streamlit Page Configuration (MUST be the first Streamlit command) --- 
 st.set_page_config(page_title="Dispatch Register", layout="wide")
 
 # --- Hide Streamlit Style Elements (Hamburger Menu, Footer, Header) ---
