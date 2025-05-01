@@ -3,3 +3,5 @@ supabase
 pandas
 openpyxl
 fpdf2
+streamlit-authenticator
+bcrypt 
