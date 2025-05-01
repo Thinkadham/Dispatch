@@ -31,7 +31,7 @@ SUPABASE_KEY = st.secrets.get("SUPABASE_KEY", "YOUR_SUPABASE_KEY")
 
 
 # --- Supabase Table Names ---
-DISPATCH_TABLE = 'dispatch_records'
+DISPATCH_TABLE = 'dispatch_records' # Added 'created_by' column referencing 'users.username'
 CONTACTS_TABLE = 'contacts'
 SEQUENCE_TABLE = 'dispatch_sequence'
 USERS_TABLE = 'users' # New table for users
@@ -113,14 +113,14 @@ def fetch_data(start_date=None, end_date=None):
                  df['No'] = None
 
             # Reorder columns for better display - ensure all potential columns are listed
-            cols_order = ['No', 'Date', 'Section', 'Address', 'Subject', 'CC', 'Remarks', 'id', 'created_at']
+            cols_order = ['No', 'Date', 'Section', 'Address', 'Subject', 'CC', 'Remarks', 'created_by', 'id', 'created_at']
             # Filter out columns not present in the dataframe before reordering
             cols_present = [col for col in cols_order if col in df.columns]
             df = df[cols_present]
             return df
         else:
             # Return empty DataFrame with expected columns if no data
-            return pd.DataFrame(columns=['No', 'Date', 'Section', 'Address', 'Subject', 'CC', 'Remarks', 'id', 'created_at'])
+            return pd.DataFrame(columns=['No', 'Date', 'Section', 'Address', 'Subject', 'CC', 'Remarks', 'created_by', 'id', 'created_at'])
     except Exception as e:
         st.error(f"Error fetching data: {e}")
         st.error(traceback.format_exc()) # Log full traceback
@@ -179,7 +179,8 @@ def insert_data(section, date_val, address, cc_list, subject, remarks):
             "CC": cc_string,
             "Subject": subject,
             "Remarks": remarks,
-            "No": generated_no # Include the generated range number directly
+            "No": generated_no, # Include the generated range number directly
+            "created_by": st.session_state.get('name') # Add the created_by field
         }
         insert_response = supabase.table(DISPATCH_TABLE).insert(data_to_insert).execute()
 
