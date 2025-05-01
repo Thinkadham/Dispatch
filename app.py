@@ -1,4 +1,4 @@
-# This is a Streamlit application for managing dispatch records.
+# This is a Streamlit application for managing dispatch records. 
 import streamlit as st
 import pandas as pd
 from supabase import create_client, Client
