@@ -406,6 +406,22 @@ if st.session_state['authentication_status']:
     # User is logged in
     st.sidebar.title(f"Welcome {st.session_state['name']}")
 
+    # Custom CSS to style the button
+    st.markdown("""
+    <style>
+        .stButton>button {
+            background: linear-gradient(to right, #FF8008, #FFC837);
+            color: black;
+            font-weight: bold;
+            border-radius: 10px;
+        }
+        .stButton>button:hover {
+            background: linear-gradient(to right, #FF6008, #FFA037);
+            color: white;
+        }
+    </style>
+    """, unsafe_allow_html=True)
+
     # Logout button
     if st.sidebar.button('Logout'):
         st.session_state['authentication_status'] = False
@@ -496,11 +512,22 @@ if st.session_state['authentication_status']:
             end_date_filter = st.date_input("End Date", value=None, key="end_date_filter")
 
         # Fetch data based on selected date range
-        st.info("Fetching records...") # Keep this info message
-        df_records = fetch_data(start_date=start_date_filter, end_date=end_date_filter)
-
+        with st.spinner("Fetching records..."):
+             df_records = fetch_data(start_date=start_date_filter, end_date=end_date_filter)
+        
         if not df_records.empty:
             st.write(f"Displaying {len(df_records)} records for the selected range.")
+            # Hide the download button using CSS
+            # st.markdown(
+            #     """
+            #     <style>
+            #         div[data-testid="stElementToolbarButton"] {
+            #             display: none;
+            #         }
+            #     </style>
+            #     """,
+            #     unsafe_allow_html=True,
+            # )
             # Display filtered data
             st.dataframe(df_records, use_container_width=True, hide_index=True)
 
