@@ -450,11 +450,8 @@ if st.session_state['authentication_status']:
             - The application uses Supabase as the backend database for storing dispatch records and contacts.
             - The dispatch number is generated automatically based on a sequence in the database, ensuring unique and sequential numbering.
 
-                The Database structure includes:
-            1.  **`dispatch_records` table:** This table stores the dispatch records. Ensure it has columns like `No`, `Date`, `Section`, `Address`, `CC`, `Subject`, `Remarks`, `id`, and `created_at`.
-            2.  **`contacts` table:** This table stores contact information. Ensure it has columns like `id` and `name`.
-            3.  **`dispatch_sequence` table:** This table is used to generate sequential dispatch numbers. It should have at least an `id` column (with a single row, e.g., `id = 1`) and a `last_no` column (integer) to store the last generated number.
-            4.  **`get_next_dispatch_no` RPC function:** This database function is called to atomically get the next available dispatch number and increment the sequence. You will need to create this function in your Supabase SQL editor. A basic example (for PostgreSQL) might look like this:
+            This Web App is built for the offices who still maintain the Dispatch register in a physical format.
+            It is a simple and easy-to-use tool for managing dispatch records electronically.
 
                Developed by: `Mohammad Adham Wani` *(Th!nkSolutions)*
         """)
