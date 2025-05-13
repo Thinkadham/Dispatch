@@ -5,7 +5,7 @@ from supabase import create_client, Client
 import os
 from datetime import datetime, date # Ensure date is imported
 import traceback # For detailed error logging
-from io import BytesIO # Import BytesIO for in-memory file handling
+from io import BytesIO # Import BytesIO for in-memory file handling 
 
 
 # --- Streamlit Page Configuration (MUST be the first Streamlit command) --- 
