@@ -5,7 +5,7 @@ from supabase import create_client, Client
 import os
 from datetime import datetime, date # Ensure date is imported
 import traceback # For detailed error logging
-from io import BytesIO # Import BytesIO for in-memory file handling 
+from io import BytesIO # Import BytesIO for in-memory file handling
 
 
 # --- Streamlit Page Configuration (MUST be the first Streamlit command) --- 
@@ -381,6 +381,23 @@ if 'name' not in st.session_state:
 
 # Display login form if not authenticated
 if st.session_state['authentication_status'] is None or st.session_state['authentication_status'] is False:
+    st.markdown(
+        """
+        <style>
+        .stForm {
+            width: 300px; /* Adjust width as needed */
+            margin: 0 auto; /* Center the form */
+        }
+        .stForm input[type="text"],
+        .stForm input[type="password"],
+        .stForm button[type="submit"] {
+            width: 100%; /* Make inputs full width of the form */
+            margin-bottom: 5px; /* Add spacing between elements */
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
     st.subheader("Login")
     with st.form("login_form"):
         input_username = st.text_input("Username")
